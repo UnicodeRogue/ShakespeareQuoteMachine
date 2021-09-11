@@ -107,4 +107,35 @@ var plays = {"plays":
 	]
 };
 
+function random_item(items){
+  return items[Math.floor(Math.random()*items.length)];
+}
 
+$(".random > a").click(function(){
+  $("#tweet-container").empty();
+  var play = random_item(plays.plays);
+  var characters = random_item(play.characters);
+  var acts = random_item(characters.acts);
+  var quote = acts.quote_nd;
+  play = play.play;
+  characters = characters.character;
+  acts = "Act: "+acts.act+" Scene: "+acts.scene;
+   
+  $("#quote_well").removeClass('hidden');
+  $("#text_q").text(quote);
+  $(".character").text(characters);
+  $(".act").text(acts);
+   $(".play").text(play);
+  var tweet_str = '"'+quote+'"\r\n'+characters+'\r\n'+acts+"\r\n"+play+"\r\n";
+    
+   twttr.widgets.createShareButton(
+  "https:\/\/codepen.io\/cth3403\/full/PjJyGX",
+  document.getElementById("tweet-container"),
+  {
+    size: "large",
+    text: tweet_str,
+    hashtags: "quotes",
+    related: "freecodecamp"
+  }
+);  
+});
